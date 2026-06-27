@@ -4,7 +4,7 @@ const Product = require('../models/product');
 async function getUserOrders(req, res){
     try {
         const orders = await Order.find({user: req.user.id})
-            .populate('items.product', 'name price')
+            .populate('items.product', 'name price imageUrl')
             .sort({createdAt: -1});
         res.json(orders);
     } catch(error){
