@@ -6,7 +6,7 @@ async function getWishList(req, res){
         const user = await User.findById(req.user.id).populate('wishlist', 'name price description imageUrl');
 
         if(!user){
-            res.status(404).json({message: 'Utente non trovato'});
+           return res.status(404).json({message: 'Utente non trovato'});
         }
 
         res.json(user.wishlist);

@@ -2,12 +2,14 @@ const Product = require('../models/Product');
 
 async function getProducts(req, res){
     try {
-        const {category, search, sort} = req.query;
+        const {category, search, sort, genre} = req.query;
         let filter = {};
 
         if(category) filter.category = category;
 
         if(search) filter.name = {$regex: search, $options: 'i'};
+
+        if(genre) filter.genre = genre;
 
         let query = Product.find(filter);
 
