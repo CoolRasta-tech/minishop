@@ -22,7 +22,12 @@ const productSchema = new mongoose.Schema({
     category: {
         type: String,
         required: true,
-        enum: ["Maglie", "Pantaloni", "Felpe", "Cappelli", "Giubotti", "Pantaloncini"]
+        enum: ['ps5', 'xbox', 'nintendo', 'pc', 'retro', 'accessori']
+    },
+    genre: {
+        type: String,
+        enum: ['action', 'rpg', 'sport', 'horror', 'adventure', 'simulation', 'fighting', 'puzzle'],
+        required: false
     },
     stock: {
         type: Number,

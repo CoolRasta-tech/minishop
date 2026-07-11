@@ -3,23 +3,23 @@ const jwt = require('jsonwebtoken');
 
 async function register(req, res){
     try {
-        const {name, email, password} = req.body;
+        const {username, email, password} = req.body;
         const registeredUser = await User.findOne({
-            $or: [{name}, {email}]
+            $or: [{username}, {email}]
         });
         
         if(registeredUser){
-            return res.status(400).json({message: 'Nome o email già registrati'});
+            return res.status(400).json({message: 'Username o email già registrati'});
         }
 
-        const newUser = new User({name, email, password});
+        const newUser = new User({username, email, password});
         await newUser.save();
 
         res.status(201).json({
             message: 'Registrazione utente completata',
             user: {
                 id: newUser._id,
-                name: newUser.name,
+                username: newUser.username,
                 email: newUser.email
             }
         });
@@ -47,7 +47,7 @@ async function login(req, res){
             token,
             user: {
                 id: user._id,
-                name: user.name,
+                username: user.username,
                 email: user.email,
                 role: user.role
             }
