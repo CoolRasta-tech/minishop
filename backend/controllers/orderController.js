@@ -1,5 +1,5 @@
 const Order = require('../models/Order');
-const Product = require('../models/product');
+const Product = require('../models/Product');
 
 async function getUserOrders(req, res){
     try {
@@ -44,7 +44,7 @@ async function createOrder(req, res){
             }
 
             if(product.stock < item.quantity){
-                return res.status(400).json({meassage: `Stock insufficiente per ${product.name}`});
+                return res.status(400).json({message: `Stock insufficiente per ${product.name}`});
             }
 
             totalPrice += product.price * item.quantity;
