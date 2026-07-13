@@ -2,12 +2,14 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { productService } from '../services/productService';
 import { useCart } from '../context/CartContext';
+import { useWishlist } from '../context/WishlistContext';
 import Spinner from '../components/Spinner';
 
 export default function ProductDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { addToCart } = useCart();
+  const { toggleWishlist, isInWishlist } = useWishlist();
 
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -18,7 +20,9 @@ export default function ProductDetail() {
     async function fetchProduct() {
       try {
         const data = await productService.getProductById(id);
-        setProduct(data);
+        // Gestisce sia oggetto diretto sia { data: {...} } — verifica il tuo controller
+        // e semplifica tenendo solo il ramo corretto
+        setProduct(data.data ?? data);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -32,6 +36,14 @@ export default function ProductDetail() {
   function handleAddToCart() {
     addToCart(product, quantity);
     navigate('/cart');
+  }
+
+  async function handleWishlistClick() {
+    try {
+      await toggleWishlist(product);
+    } catch (err) {
+      console.error('Errore wishlist', err);
+    }
   }
 
   if (loading) return <Spinner />;
@@ -48,7 +60,12 @@ export default function ProductDetail() {
         <img src={product.imageUrl} alt={product.name} className="product-detail-image" />
 
         <div className="product-detail-info">
-          <h1>{product.name}</h1>
+          <div className="product-detail-header">
+            <h1>{product.name}</h1>
+            <button onClick={handleWishlistClick} className="wishlist-btn">
+              {isInWishlist(product._id) ? '❤️' : '🤍'}
+            </button>
+          </div>
 
           {product.category && <p className="product-detail-category">{product.category}</p>}
 
