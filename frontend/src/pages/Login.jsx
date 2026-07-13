@@ -1,0 +1,62 @@
+import { useState } from "react";
+import {useNavigate,Link} from 'react-router-dom';
+import {useAuth} from '../context/AuthContext';
+
+export default function Login(){
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
+
+    const {login} = useAuth();
+    const navigate = useNavigate();
+
+    async function handleSubmit(e){
+        e.preventDefault();
+        setError('');
+        setLoading(true);
+
+        try {
+            await login(email,password);
+            navigate('/');
+        }catch(err){
+            setError(err.message);
+        }finally{
+            setLoading(false)
+        }
+    }
+
+    return(
+        <div className= "auth-page">
+            <form onSubmit ={handleSubmit} className = "auth-form">
+                <h2>Accedi</h2>
+
+                {error && <p className = "error">{error}</p>}
+
+                <input
+                type = "email"
+                placeholder = "Email"
+                value = {email}
+                onChange = {(e) => setEmail(e.target.value)}
+                required
+                />
+
+                <input
+                type = "password"
+                placeholder = "Password"
+                value = {password}
+                onChange={(e)=> setPassword(e.target.value)} 
+                required
+                />
+
+                <button type = "submit" disabled = {loading}>
+                    {loading ? 'Accesso in corso...': 'Accedi'}
+                </button>
+
+                <p className="auth-switch">
+                    Non hai un account? <Link to = "/register">Registrati</Link>
+                </p>
+            </form>
+        </div>
+    );
+}
