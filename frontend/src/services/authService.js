@@ -11,7 +11,7 @@ export const authService = {
         });
     },
 
-    register: async (email, username, password) => {
+    register: async (username, email, password) => {
         return request("/auth/register", {
             method: "POST",
             body: JSON.stringify({

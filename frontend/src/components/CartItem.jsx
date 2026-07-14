@@ -1,6 +1,6 @@
 import {useCart} from "../context/CartContext";
 
-const CartItem = ({item}) => {
+export default function CartItem({item}){
     const {updateQuantity, removeFromCart} = useCart();
     const {product, quantity} = item;
 
@@ -38,5 +38,3 @@ const CartItem = ({item}) => {
         </div>
     );
 };
-
-export default CartItem;

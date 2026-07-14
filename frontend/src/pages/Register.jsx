@@ -36,27 +36,24 @@ export default function Register(){
 
                 <input
                 type="text"
-                placeholder="Nome"
+                placeholder="UserName"
                 value ={username}
                 onChange ={(e)=> setUsername(e.target.value)}
-                required
-                />
+                required />
 
                 <input
                 type="email"
                 placeholder="Email"
                 value = {email}
                 onChange = {(e) => setEmail(e.target.value)}
-                required
-                />
+                required />
 
                 <input
                 type="password"
                 placeholder="Password"
                 value = {password}
                 onChange ={(e)=> setPassword(e.target.value)}
-                required
-                />
+                required />
 
                 <button type="submit" disabled={loading}>
                     {loading ? 'Registrazione in corso...': 'Registrati'}

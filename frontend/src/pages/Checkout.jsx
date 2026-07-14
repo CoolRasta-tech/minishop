@@ -16,7 +16,7 @@ export default function Checkout() {
 
         try {
             const orderItems = items.map((item) => ({
-                product: item.product._id,
+                productId: item.product._id,
                 quantity: item.quantity,
             }));
 
@@ -43,8 +43,7 @@ export default function Checkout() {
                         <img
                             src={item.product.imageUrl}
                             alt={item.product.name}
-                            className="checkout-item-image"
-                        />
+                            className="checkout-item-image" />
                         <span className="checkout-item-name">{item.product.name}</span>
                         <span className="checkout-item-quantity">x{item.quantity}</span>
                         <span className="checkout-item-subtotal">
@@ -61,8 +60,7 @@ export default function Checkout() {
             <button
                 onClick={handleConfirmOrder}
                 disabled={submitting}
-                className="confirm-order-btn"
-            >
+                className="confirm-order-btn" >
                 {submitting ? 'Conferma in corso...' : 'Conferma ordine'}
             </button>
         </div>

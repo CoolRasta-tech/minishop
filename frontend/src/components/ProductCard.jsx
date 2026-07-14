@@ -2,7 +2,7 @@ import {Link} from 'react-router-dom';
 import {useCart} from '../context/CartContext';
 import {useWishlist} from '../context/WishlistContext';
 
-const ProductCard = ({product}) => {
+export default function ProductCard ({product}){
     const {addToCart} = useCart();
     const {toggleWishlist, isInWishlist} = useWishlist();
 
@@ -31,7 +31,7 @@ const ProductCard = ({product}) => {
             )}
 
             <h3 className='product-card-name'>{product.name}</h3>
-            <p className='product-card-price'>{product.price?.toFixed(2) ?? '0.00'} €</p>
+            <p className='product-card-price'>{product.price?.toFixed(2) ?? 'Esaurito'} €</p>
             </Link>
             <button onClick={handleAddToCart} className='product-card-addCart-btn'>Aggiungi al carrello</button>
             <button onClick={handleWishlistClick} className='product-card-addWishlist-btn'>
@@ -40,5 +40,3 @@ const ProductCard = ({product}) => {
         </div>
     );
 }
-
-export default ProductCard;

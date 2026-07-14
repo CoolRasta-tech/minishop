@@ -3,7 +3,7 @@ import {useAuth} from '../context/AuthContext';
 import {useCart} from '../context/CartContext';
 import {useWishlist} from '../context/WishlistContext';
 
-const Navbar = () => {
+export default function Navbar(){
     const {user, logout} = useAuth();
     const {cartCount} = useCart();
     const {wishlistCount} = useWishlist();
@@ -58,5 +58,3 @@ const Navbar = () => {
         </nav>
     );
 };
-
-export default Navbar;

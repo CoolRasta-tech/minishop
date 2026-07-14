@@ -10,6 +10,7 @@ const wishlistRoutes = require("./routes/wishlistRoutes");
 const app = express();
 
 connectDB();
+
 app.use(cors());
 app.use(express.json());
 
@@ -22,6 +23,8 @@ app.use((req, res) => {
     res.status(404).json({message: 'Route non trovata'});
 })
 
-app.listen(process.env.PORT, () => {
-    console.log(`Server in ascolto sulla porta: ${process.env.PORT}`);
-})
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+    console.log(`Server in ascolto sulla porta: ${PORT}`);
+});

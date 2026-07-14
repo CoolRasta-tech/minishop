@@ -3,7 +3,7 @@ const Product = require('../models/Product');
 
 async function getWishList(req, res){
     try {
-        const user = await User.findById(req.user.id).populate('wishlist', 'name price description imageUrl');
+        const user = await User.findById(req.user.id).populate('wishlist', 'name price description');
 
         if(!user){
             return res.status(404).json({message: 'Utente non trovato'});

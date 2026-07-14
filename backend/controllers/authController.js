@@ -24,6 +24,7 @@ async function register(req, res){
             }
         });
     } catch(error){
+        console.error("ERRORE REGISTRAZIONE:", error);
         res.status(500).json({message: 'Internal Server Error'}, error);
     }
 };

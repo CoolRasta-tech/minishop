@@ -8,21 +8,19 @@ export default function Home() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('all');
+    const [selectedGenre, setSelectedGenre] = useState('all');
 
     useEffect(() => {
         async function fetchProducts() {
             try {
                 const data = await productService.getProducts();
-                // Gestisce sia array diretto sia { data: [...] } — verifica il tuo controller
-                // e semplifica tenendo solo il ramo corretto
-                setProducts(Array.isArray(data) ? data : data.data || []);
+                setProducts(data);
             } catch (err) {
                 setError(err.message);
             } finally {
                 setLoading(false);
             }
         }
-
         fetchProducts();
     }, []);
 
@@ -31,13 +29,28 @@ export default function Home() {
         return ['all', ...unique];
     }, [products]);
 
-    const filteredProducts = useMemo(() => {
-        if (selectedCategory === 'all') return products;
-        return products.filter((p) => p.category === selectedCategory);
+    const genres = useMemo(() => {
+        const source = selectedCategory === 'all'
+            ? []
+            : products.filter((p) => p.category === selectedCategory);
+        const unique = new Set(source.map((p) => p.genre).filter(Boolean));
+        return ['all', ...unique];
     }, [products, selectedCategory]);
 
-    if (loading) return <Spinner />;
+    const filteredProducts = useMemo(() => {
+        return products.filter((p) => {
+            const matchCategory = selectedCategory === 'all' || p.category === selectedCategory;
+            const matchGenre = selectedGenre === 'all' || p.genre === selectedGenre;
+            return matchCategory && matchGenre;
+        });
+    }, [products, selectedCategory, selectedGenre]);
 
+    function handleCategoryClick(cat) {
+        setSelectedCategory(cat);
+        setSelectedGenre('all');
+    }
+
+    if (loading) return <Spinner />;
     if (error) return <p className="error">{error}</p>;
 
     return (
@@ -49,9 +62,22 @@ export default function Home() {
                     {categories.map((cat) => (
                         <button
                             key={cat}
-                            onClick={() => setSelectedCategory(cat)}
+                            onClick={() => handleCategoryClick(cat)}
                             className={selectedCategory === cat ? 'active' : ''} >
-                            {cat === 'all' ? 'Tutte' : cat}
+                            {cat === 'all' ? 'Tutte le piattaforme' : cat}
+                        </button>
+                    ))}
+                </div>
+            )}
+
+            {selectedCategory !== 'all' && genres.length > 1 && (
+                <div className="genre-filter">
+                    {genres.map((genre) => (
+                        <button
+                            key={genre}
+                            onClick={() => setSelectedGenre(genre)}
+                            className={selectedGenre === genre ? 'active' : ''} >
+                            {genre === 'all' ? 'Tutti i generi' : genre}
                         </button>
                     ))}
                 </div>

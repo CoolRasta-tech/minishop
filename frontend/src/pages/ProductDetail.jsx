@@ -20,9 +20,7 @@ export default function ProductDetail() {
     async function fetchProduct() {
       try {
         const data = await productService.getProductById(id);
-        // Gestisce sia oggetto diretto sia { data: {...} } — verifica il tuo controller
-        // e semplifica tenendo solo il ramo corretto
-        setProduct(data.data ?? data);
+        setProduct(data);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -63,7 +61,7 @@ export default function ProductDetail() {
           <div className="product-detail-header">
             <h1>{product.name}</h1>
             <button onClick={handleWishlistClick} className="wishlist-btn">
-              {isInWishlist(product._id) ? '❤️' : '🤍'}
+              {isInWishlist(product._id) ? '♥' : '♡'}
             </button>
           </div>
 
