@@ -9,6 +9,7 @@ export default function Home() {
     const [error, setError] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('all');
     const [selectedGenre, setSelectedGenre] = useState('all');
+    const [search, setSearch] = useState(''); // ← nuovo stato
 
     useEffect(() => {
         async function fetchProducts() {
@@ -41,9 +42,10 @@ export default function Home() {
         return products.filter((p) => {
             const matchCategory = selectedCategory === 'all' || p.category === selectedCategory;
             const matchGenre = selectedGenre === 'all' || p.genre === selectedGenre;
-            return matchCategory && matchGenre;
+            const matchSearch = p.name.toLowerCase().includes(search.toLowerCase()); // ← nuovo filtro
+            return matchCategory && matchGenre && matchSearch;
         });
-    }, [products, selectedCategory, selectedGenre]);
+    }, [products, selectedCategory, selectedGenre, search]);
 
     function handleCategoryClick(cat) {
         setSelectedCategory(cat);
@@ -56,6 +58,13 @@ export default function Home() {
     return (
         <div className="home-page">
             <h1>Catalogo</h1>
+            
+            <input
+                type="text"
+                placeholder="Cerca un videogioco..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="search-bar"/>
 
             {categories.length > 1 && (
                 <div className="category-filter">
@@ -63,7 +72,7 @@ export default function Home() {
                         <button
                             key={cat}
                             onClick={() => handleCategoryClick(cat)}
-                            className={selectedCategory === cat ? 'active' : ''} >
+                            className={selectedCategory === cat ? 'active' : ''}>
                             {cat === 'all' ? 'Tutte le piattaforme' : cat}
                         </button>
                     ))}
@@ -76,7 +85,7 @@ export default function Home() {
                         <button
                             key={genre}
                             onClick={() => setSelectedGenre(genre)}
-                            className={selectedGenre === genre ? 'active' : ''} >
+                            className={selectedGenre === genre ? 'active' : ''}>
                             {genre === 'all' ? 'Tutti i generi' : genre}
                         </button>
                     ))}

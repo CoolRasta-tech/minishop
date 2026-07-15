@@ -22,8 +22,7 @@ export default function AdminProducts() {
     const [submitting, setSubmitting] = useState(false);
     const [formError, setFormError] = useState('');
 
-    useEffect(() => {
-            async function fetchProducts() {
+    async function fetchProducts() {
             setLoading(true);
             try {
                 const data = await productService.getProducts();
@@ -34,6 +33,8 @@ export default function AdminProducts() {
                 setLoading(false);
             }
         }
+
+    useEffect(() => {
         fetchProducts();
     }, []);
 
@@ -156,15 +157,16 @@ export default function AdminProducts() {
                                 <td>{product.genre}</td>
                                 <td>{product.price.toFixed(2)} €</td>
                                 <td>{product.stock}</td>
-                                <td className="admin-product-actions">
-                                    <button onClick={() => openEditModal(product)}>
-                                        Modifica
-                                    </button>
-                                    <button
-                                        onClick={() => handleDelete(product)}
-                                        className="delete-btn">
-                                        Elimina
-                                    </button>
+                                <td>
+                                    <div className="admin-product-actions">
+                                        <button 
+                                            onClick={() => openEditModal(product)}>
+                                            Modifica</button>
+                                        <button 
+                                            onClick={() => handleDelete(product)} 
+                                            className="delete-btn">
+                                            Elimina</button>
+                                    </div>
                                 </td>
                             </tr>
                         ))}

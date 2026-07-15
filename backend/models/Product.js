@@ -26,7 +26,7 @@ const productSchema = new mongoose.Schema({
     },
     genre: {
         type: String,
-        enum: ['action', 'rpg', 'sport', 'horror', 'adventure', 'simulation', 'fighting', 'puzzle'],
+        enum: ['action', 'rpg', 'sport', 'horror', 'adventure', 'simulation', 'fighting', 'platform'],
         required: false
     },
     stock: {

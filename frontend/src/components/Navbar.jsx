@@ -5,26 +5,27 @@ import {useWishlist} from '../context/WishlistContext';
 
 export default function Navbar(){
     const {user, logout} = useAuth();
-    const {cartCount} = useCart();
+    const {cartCount, clearCart} = useCart();
     const {wishlistCount} = useWishlist();
     const navigate = useNavigate();
 
     function handleLogout(){
         logout();
+        clearCart();
         navigate('/login');
     };
 
     return (
         <nav className="navbar">
             <div className="nav-left">
-                <Link to="/" className="nav-logo">Logo</Link>
+                <Link to="/" className="nav-logo">Minishop 🛒</Link>
                 <Link to="/" className="nav-link">Catalogo</Link>
 
                 {user && (
                     <>
                         <Link to="/wishlist" className="nav-link">
                             Wishlist
-                            {wishlistCount > 0 && <span className='wishlist-badge'>{wishlistCount}</span>}
+                            {wishlistCount > 0 && <span className='wishlist-badge'> - {wishlistCount}</span>}
                             </Link>
                         <Link to="/orders" className="nav-link">Ordini</Link>
                     </>
