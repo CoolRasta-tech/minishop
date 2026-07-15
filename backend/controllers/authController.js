@@ -1,6 +1,3 @@
-const User = require('../models/User');
-const jwt = require('jsonwebtoken');
-
 async function register(req, res){
     try {
         const {username, email, password} = req.body;
@@ -25,7 +22,7 @@ async function register(req, res){
         });
     } catch(error){
         console.error("ERRORE REGISTRAZIONE:", error);
-        res.status(500).json({message: 'Internal Server Error'}, error);
+        res.status(500).json({message: 'Internal Server Error'});
     }
 };
 
@@ -54,7 +51,8 @@ async function login(req, res){
             }
         });
     } catch(error){
-        res.status(500).json({message: 'Internal Server Error'}, error);
+        console.error("ERRORE LOGIN:", error);
+        res.status(500).json({message: 'Internal Server Error'});
     }
 };
 

@@ -1,8 +1,6 @@
 const API_BASE = import.meta.env.VITE_API_URL
     ? `${import.meta.env.VITE_API_URL}/api`
     : '/api';
-    
-console.log('API_BASE:', API_BASE);
 
 async function request(endpoint, options = {}) {
     const token = localStorage.getItem("minishop_token");
