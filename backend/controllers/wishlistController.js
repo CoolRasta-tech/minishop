@@ -11,7 +11,7 @@ async function getWishList(req, res){
 
         res.json(user.wishlist);
     } catch(error){
-        res.status(500).json({message: "Internal Server Error"})
+        res.status(500).json({message: 'Errore nel recupero della wishlist', error: error.message})
     }
 };
 
@@ -34,7 +34,7 @@ async function addToWishlist(req, res){
         )
         res.json({message: 'Prodotto aggiunto alla WishList'});
     } catch(error){
-        res.status(500).json({message: "Internal Server Error"})
+        res.status(500).json({message: 'Errore nell\'aggiunta del prodotto alla wishlist', error: error.message})
     }
 };
 
@@ -57,7 +57,7 @@ async function removeFromWishlist(req, res){
         )
         res.json({message: 'Prodotto rimosso dalla Wishlist'});
     } catch(error){
-        res.status(500).json({message: "Internal Server Error"})
+        res.status(500).json({message: 'Errore nella rimozione del prodotto dalla wishlist', error: error.message})
     }
 };
 

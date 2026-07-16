@@ -1,9 +1,3 @@
-/* ═══════════════════════════════════════════════════════════════
-   MiniShop — Global Stylesheet
-   Tema: dark gaming con accenti elettrici
-   Font: system-ui per velocità, monospace per prezzi/codici
-   ═══════════════════════════════════════════════════════════════ */
-
 /* ── RESET & ROOT ─────────────────────────────────────────────── */
 *, *::before, *::after {
   box-sizing: border-box;

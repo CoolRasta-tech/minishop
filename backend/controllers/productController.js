@@ -26,7 +26,7 @@ async function getProducts(req, res){
         const products = await query;
         res.json(products);
     } catch(error){
-        res.status(500).json({message: 'Internal Server Error'})
+        res.status(500).json({message: 'Errore nel recupero della lista prodotti', error: error.message})
     }
 };
 
@@ -40,7 +40,7 @@ async function getProductById(req, res){
 
         res.json(product)
     } catch(error){
-        res.status(500).json({message: 'Internal Server Error'})
+        res.status(500).json({message: 'Errore nel recupero del prodotto', error: error.message})
     }
 };
 
@@ -49,7 +49,7 @@ async function createProduct(req, res){
         const product = await Product.create(req.body);
         res.status(201).json(product);
     } catch(error){
-        res.status(500).json({message: 'Internal Server Error'});
+        res.status(500).json({message: 'Errore nella creazione del prodotto', error: error.message});
     }
 };
 
@@ -72,7 +72,7 @@ async function updateProduct(req, res){
         await product.save();
         res.json(product);
     } catch(error){
-        res.status(500).json({message: 'Internal Server Error'});
+        res.status(500).json({message: 'Errore nell\'aggiornamento del prodotto', error: error.message});
     }
 };
 
@@ -87,7 +87,7 @@ async function deleteProduct(req, res){
         await Product.findByIdAndDelete(req.params.id);
         res.json({message: 'Prodotto eliminato'});
     } catch(error){
-        res.status(500).json({message: 'Internal Server Error'});
+        res.status(500).json({message: 'Errore nell\' eliminazione del prodotto', error: error.message});
     }
 };
 

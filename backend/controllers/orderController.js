@@ -8,7 +8,7 @@ async function getUserOrders(req, res){
             .sort({createdAt: -1});
         res.json(orders);
     } catch(error){
-        res.status(500).json({message: 'Internal Status Error'})
+        res.status(500).json({message: 'Errore nel recupero degli ordini', error: error.message})
     }
 };
 
@@ -26,7 +26,7 @@ async function getOrderById(req, res){
         
         res.json(order);
     } catch(error){
-        res.status(500).json({message: 'Internal Server Error'});
+        res.status(500).json({message: 'Errore nel recupero del dettaglio ordine', error: error.message});
     }
 };
 
@@ -68,7 +68,7 @@ async function createOrder(req, res){
         res.status(201).json(order)
 
     } catch(error){
-        res.status(500).json({message: 'Internal Server Error'});
+        res.status(500).json({message: 'Errore nella creazione dell\'ordine', error: error.message});
     }
 }
 

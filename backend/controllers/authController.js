@@ -24,8 +24,7 @@ async function register(req, res){
             }
         });
     } catch(error){
-        console.error("ERRORE REGISTRAZIONE:", error);
-        res.status(500).json({message: 'Internal Server Error'});
+        res.status(500).json({message: 'Errore durante la registrazione dell\' utente', error: error.message});
     }
 };
 
@@ -43,7 +42,7 @@ async function login(req, res){
             return res.status(401).json({message: 'Unauthorization: email o password non validi'});
         }
 
-        const token = jwt.sign({id: user._id, role: user.role}, process.env.JWT_SECRET, {expiresIn: '1h'});
+        const token = jwt.sign({id: user._id, role: user.role}, process.env.JWT_SECRET, {expiresIn: '3h'});
         res.status(200).json({
             token,
             user: {
@@ -54,8 +53,7 @@ async function login(req, res){
             }
         });
     } catch(error){
-        console.error("ERRORE LOGIN:", error);
-        res.status(500).json({message: 'Internal Server Error'});
+        res.status(500).json({message: 'Errore durante il login', error: error.message});
     }
 };
 
