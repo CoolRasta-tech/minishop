@@ -10,4 +10,4 @@ router.post("/", protect, adminOnly, productController.createProduct);
 router.put("/:id", protect, adminOnly, productController.updateProduct);
 router.delete("/:id", protect, adminOnly, productController.deleteProduct);
 
-module.exports = router;
+module.exports = router; 

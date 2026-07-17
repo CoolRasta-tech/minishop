@@ -17,7 +17,7 @@ async function getOrderById(req, res){
         const order = await Order.findById(req.params.id).populate('items.product', 'name price');
 
         if(!order){
-            return res.status(404).json({message: 'Order Not Found'});
+            return res.status(404).json({message: 'Ordine non trovato'});
         }
 
         if(order.user.toString() !== req.user.id){

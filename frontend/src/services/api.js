@@ -9,8 +9,7 @@ async function request(endpoint, options = {}) {
 
     const res = await fetch(`${API_BASE}${endpoint}`, { ...options, headers });
 
-    const text = await res.text();
-    const data = text ? JSON.parse(text) : null;
+    const data = await res.json();
 
     if (!res.ok) throw new Error(data?.message || "Errore del Server");
     return data;
