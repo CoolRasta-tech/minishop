@@ -1,7 +1,7 @@
 import request from "./api";
 
 export const authService = {
-    login: async (email, password) => {
+    login: (email, password) => {
         return request("/auth/login", {
             method: "POST",
             body: JSON.stringify({
@@ -11,7 +11,7 @@ export const authService = {
         });
     },
 
-    register: async (username, email, password) => {
+    register: (username, email, password) => {
         return request("/auth/register", {
             method: "POST",
             body: JSON.stringify({

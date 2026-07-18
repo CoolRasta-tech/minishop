@@ -1,7 +1,7 @@
 import request from "./api";
 
 export const orderService = {
-    createOrder: async (cartItems) => {
+    createOrder: (cartItems) => {
         return request('/orders', {
             method: 'POST',
             body: JSON.stringify({
@@ -10,11 +10,11 @@ export const orderService = {
         });
     },
 
-    getUserOrders: async () => {
+    getUserOrders: () => {
         return request('/orders');
     },
 
-    getOrderById: async (id) => {
+    getOrderById: (id) => {
         return request(`/orders/${id}`);
     }
 }

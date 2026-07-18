@@ -1,7 +1,7 @@
 import request from './api';
 
 export const productService = {
-    getProducts: async (filters = {}) => {
+    getProducts: (filters = {}) => {
         const params = new URLSearchParams();
 
         if(filters.category) params.set('category', filters.category);
@@ -13,25 +13,25 @@ export const productService = {
         return request(`/products${query}`);
     },
 
-    getProductById: async (id) => {
+    getProductById: (id) => {
         return request(`/products/${id}`);
     },
 
-    createProduct: async (data) => {
+    createProduct: (data) => {
         return request(`/products/`, {
             method: 'POST',
             body: JSON.stringify(data)
         });
     },
 
-    updateProduct: async (id, data) => {
+    updateProduct: (id, data) => {
         return request(`/products/${id}`, {
             method: 'PUT',
             body: JSON.stringify(data)
         });
     },
 
-    deleteProduct: async (id) => {
+    deleteProduct: (id) => {
         return request(`/products/${id}`, {
             method: 'DELETE'
         });
